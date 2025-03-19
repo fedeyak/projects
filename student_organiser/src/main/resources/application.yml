@@ -1,0 +1,7 @@
+spring:
+  shell:
+    interactive:
+      enabled: true
+
+app:
+  create-initial-students: true

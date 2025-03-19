@@ -1,0 +1,14 @@
+1723043604505:add_s Ivan Petrov 17add_s Petr Ivanov 27get_s
+1723043642921:rem_s
+1723043652385:rem_s 1
+1723054570123:add Ivan Petrov 17add Petr Ivanov 27del 1
+1723055586710:add --firstName Ivan --lastName Petrov --age 17
+1723055867899:add --fn Ivan --ln Petrov --age 17d
+1723055976611:add --fn Ivan --ln Petrov --age 17
+1723056012876:add --fn Stepan --ln Ersov --age 22
+1723056044539:add --fn Egor --ln Low --age 92
+1723056057286:get
+1723056075959:rem 2
+1723056082903:get
+1723056090967:del
+1723056098022:get

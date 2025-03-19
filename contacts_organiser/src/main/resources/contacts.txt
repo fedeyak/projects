@@ -1,0 +1,3 @@
+Ivan Petrov;12345;ivan@email.com
+Petr Ivanov;54321;petr@email.com
+John Lennon;98765;john@lennon.com

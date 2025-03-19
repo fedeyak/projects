@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contact Form</title>
+    <style>
+        input, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Contact Form</h1>
+
+<form th:action="@{${contact.id == null ? '/contacts' : '/contacts/update/' + contact.id}}"
+      th:object="${contact}" method="post">
+    <input type="text" th:field="*{firstName}" placeholder="First name" />
+    <input type="text" th:field="*{lastName}" placeholder="Last name" />
+    <input type="text" th:field="*{email}" placeholder="e-mail" />
+    <input type="text" th:field="*{phone}" placeholder="phone" />
+    <button type="submit">Save</button>
+</form>
+
+<a href="/contacts">Back</a>
+</body>
+</html>
+
+

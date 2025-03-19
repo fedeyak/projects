@@ -1,0 +1,76 @@
+1723056709827:get
+1723058057803:add --fn Ivan --ln Petrov --age 171
+1723058115758:get
+1723058356269:add --fn Ivan --ln Petrov --age 17
+1723058366751:get
+1723059639003:add --fn Ivan --ln Petrov --age 171
+1723059659868:add --fn Ivan --ln Petrov --age 17get
+1723059663116:get
+1723059821509:add --fn Ivan --ln Petrov --age 17
+1723059841503:get
+1723059942004:add --fn Ivan --ln Petrov --age 17get
+1723059961332:add --fn Ivan --ln Petrov --age 171
+1723059968220:add --fn Ivan --ln Petrov --age 172
+1723059973964:add --fn Ivan --ln Petrov --age 173
+1723059977661:get
+1723062682318:add --fn Ivan --ln Petrov --age 17
+1723062691848:get
+1723068455702:shell:>
+1723068463313:add --fn Ivan --ln Petrov --age 17
+1723068484785:get
+1723068511786:del 4
+1723068511792:6
+1723068515338:rem 4
+1723068523181:rem 2
+1723068534794:rem 6
+1723068538897:get
+1723068658736:add --fn Ivan --ln Petrov --age 17
+1723068662537:get
+1723068674306:rem 2
+1723068680594:get
+1723068697634:del
+1723068762333:get
+1723068797160:add --fn Ivan --ln Petrov --age 17
+1723068821453:rem 3
+1723068825130:get
+1723068829825:del
+1723068928419:add --fn Ivan --ln Petrov --age 17
+1723069325698:rem 3
+1723069435042:get
+1723069457148:rem 7
+1723069764773:get
+1723070055997:"Student| id: " + id + "; firstName: " + firstName +
+1723070159818:get
+1723070170187:rem 2
+1723070180859:get
+1723070203058:del
+1723070208127:add --fn Ivan --ln Petrov --age 17
+1723070233610:get
+1723070250129:add --fn Ivan --ln Petrov --age 17
+1723070256112:get
+1723070260776:add --fn Ivan --ln Petrov --age 17
+1723070268914:rem 3
+1723070272694:add --fn Ivan --ln Petrov --age 17
+1723070277450:del
+1723070635607:add --fn Ivan --ln Petrov --age 170
+1723070978691:get
+1723070985054:add --fn Ivan --ln Petrov --age 170
+1723071338167:add --fn Ivan --ln Petrov --age 17;
+1723071347758:add --fn Ivan --ln Petrov --age 17 ;0
+1723071363750:add --fn Ivan --ln Petrov --age 17 ;d
+1723071855839:add --fn Ivan --ln Petrov --age 170
+1723071893706:add -f a -l b -a 22
+1723071915423:get
+1723071978536:add --fn Ivan --ln Petrov --age 170
+1723071992887:add -fn Ivan -ln Petrov -age 17
+1723072200816:add --fn Ivan -ln Petrov -age 170
+1723072424623:add --fn Ivan --ln Petrov --age 170
+1723072521305:add --fn Ivan --ln Petrov --age 17;
+1723072878850:add --fn Ivan --ln Petrov --age 17
+1723072931391:add --fn Stepan --ln Guchkov --age 22
+1723073051215:add --fn Ivan --ln Petrov --age 170
+1723073084704:add --fn Stepan --ln Kur --age 23
+1723073092360:get
+1723073101104:rem 3
+1723073105119:get
+1723073109974:del
