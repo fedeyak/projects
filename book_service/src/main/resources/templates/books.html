@@ -1,37 +1,231 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Books</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Список книг</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
-<body>
-<div class="container mt-4">
-    <h2>Book List</h2>
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Vendor Code</th>
-            <th>Title</th>
-            <th>Year</th>
-            <th>Brand</th>
-            <th>Stock</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="book : ${books}">
-            <td th:text="${book.id}"></td>
-            <td th:text="${book.vendorCode}"></td>
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.year}"></td>
-            <td th:text="${book.brand}"></td>
-            <td th:text="${book.stock}"></td>
-            <td th:text="${book.price}"></td>
-        </tr>
-        </tbody>
-    </table>
+<body class="container py-4">
+
+<h2>Список книг</h2>
+
+<a href="/books/add" class="btn btn-success mb-3">Добавить книгу</a>
+
+<!-- Форма фильтрации -->
+<form method="get" class="row g-3 mb-3">
+    <div class="col-md-3">
+        <input type="text" name="title" class="form-control" placeholder="Название"
+               th:value="${titleFilter}">
+    </div>
+    <div class="col-md-2">
+        <input type="text" name="publicationYear" class="form-control" placeholder="Год публикации"
+               th:value="${yearFilter}">
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="brand" class="form-control" placeholder="Бренд"
+               th:value="${brandFilter}">
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary">Фильтровать</button>
+        <a th:href="@{/books}" class="btn btn-secondary">Сбросить</a>
+    </div>
+</form>
+
+<!-- Таблица книг -->
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Код</th>
+        <th>Название</th>
+        <th>Год публикации</th>
+        <th>Бренд</th>
+        <th>Остаток</th>
+        <th>Цена</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${bookPage.content}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.vendorCode}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.publicationYear}"></td>
+        <td th:text="${book.brand}"></td>
+        <td th:text="${book.stock}"></td>
+        <td th:text="${book.price}"></td>
+        <td>
+            <a th:href="@{'/books/edit/' + ${book.id}}" class="btn btn-sm btn-primary">Редактировать</a>
+            <a th:href="@{'/books/delete/' + ${book.id}}" class="btn btn-sm btn-danger"
+               onclick="return confirm('Удалить эту книгу?')">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Пагинация -->
+<div class="d-flex justify-content-between">
+    <div>
+        Страница <span th:text="${bookPage.number + 1}"></span> из <span th:text="${bookPage.totalPages}"></span>
+    </div>
+    <div>
+        <a th:href="@{/books(page=${bookPage.number - 1}, size=${pageSize},
+                             title=${titleFilter}, publicationYear=${yearFilter}, brand=${brandFilter})}"
+           class="btn btn-outline-secondary btn-sm"
+           th:if="${bookPage.hasPrevious()}">Назад</a>
+
+        <a th:href="@{/books(page=${bookPage.number + 1}, size=${pageSize},
+                             title=${titleFilter}, publicationYear=${yearFilter}, brand=${brandFilter})}"
+           class="btn btn-outline-secondary btn-sm"
+           th:if="${bookPage.hasNext()}">Вперёд</a>
+    </div>
 </div>
+
 </body>
 </html>
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Список книг</title>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">-->
+<!--</head>-->
+<!--<body class="container py-4">-->
+
+<!--<h2>Список книг</h2>-->
+
+<!--<a href="/books/add" class="btn btn-success mb-3">Добавить книгу</a>-->
+
+<!--&lt;!&ndash; Форма фильтрации &ndash;&gt;-->
+<!--<form method="get" class="row g-3 mb-3">-->
+<!--    <div class="col-md-3">-->
+<!--        <input type="text" name="title" class="form-control" placeholder="Название"-->
+<!--               th:value="${titleFilter}">-->
+<!--    </div>-->
+<!--    <div class="col-md-2">-->
+<!--        <input type="text" name="year" class="form-control" placeholder="Год публикации"-->
+<!--               th:value="${yearFilter}">-->
+<!--    </div>-->
+<!--    <div class="col-md-3">-->
+<!--        <input type="text" name="brand" class="form-control" placeholder="Бренд"-->
+<!--               th:value="${brandFilter}">-->
+<!--    </div>-->
+<!--    <div class="col-md-4">-->
+<!--        <button type="submit" class="btn btn-primary">Фильтровать</button>-->
+<!--        <a th:href="@{/books}" class="btn btn-secondary">Сбросить</a>-->
+<!--    </div>-->
+<!--</form>-->
+
+<!--&lt;!&ndash; Таблица книг &ndash;&gt;-->
+<!--<table class="table table-bordered">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Код</th>-->
+<!--        <th>Название</th>-->
+<!--        <th>Год публикации</th>-->
+<!--        <th>Бренд</th>-->
+<!--        <th>Остаток</th>-->
+<!--        <th>Цена</th>-->
+<!--        <th>Действия</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="book : ${bookPage.content}">-->
+<!--        <td th:text="${book.id}"></td>-->
+<!--        <td th:text="${book.vendorCode}"></td>-->
+<!--        <td th:text="${book.title}"></td>-->
+<!--        <td th:text="${book.publicationYear}"></td>-->
+<!--        <td th:text="${book.brand}"></td>-->
+<!--        <td th:text="${book.stock}"></td>-->
+<!--        <td th:text="${book.price}"></td>-->
+<!--        <td>-->
+<!--            <a th:href="@{'/books/edit/' + ${book.id}}" class="btn btn-sm btn-primary">Редактировать</a>-->
+<!--            <a th:href="@{'/books/delete/' + ${book.id}}" class="btn btn-sm btn-danger"-->
+<!--               onclick="return confirm('Удалить эту книгу?')">Удалить</a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<!--&lt;!&ndash; Пагинация &ndash;&gt;-->
+<!--<div class="d-flex justify-content-between">-->
+<!--    <div>-->
+<!--        Страница <span th:text="${bookPage.number + 1}"></span> из <span th:text="${bookPage.totalPages}"></span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <a th:href="@{/books(page=${bookPage.number - 1}, size=${pageSize},-->
+<!--                             title=${titleFilter}, year=${yearFilter}, brand=${brandFilter})}"-->
+<!--           class="btn btn-outline-secondary btn-sm"-->
+<!--           th:if="${bookPage.hasPrevious()}">Назад</a>-->
+
+<!--        <a th:href="@{/books(page=${bookPage.number + 1}, size=${pageSize},-->
+<!--                             title=${titleFilter}, year=${yearFilter}, brand=${brandFilter})}"-->
+<!--           class="btn btn-outline-secondary btn-sm"-->
+<!--           th:if="${bookPage.hasNext()}">Вперёд</a>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Список книг</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body class="container py-4">&ndash;&gt;-->
+
+<!--&lt;!&ndash;<h2>Список книг</h2>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<a href="/books/add" class="btn btn-success mb-3">Добавить книгу</a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<table class="table table-bordered">&ndash;&gt;-->
+<!--&lt;!&ndash;    <thead>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>ID</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Код</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Название</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Год публикации</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Бренд</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Остаток</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Цена</th>&ndash;&gt;-->
+<!--&lt;!&ndash;        <th>Действия</th>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    </thead>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;    <tr th:each="book : ${bookPage.content}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${book.id}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${book.vendorCode}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${book.title}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${book.publicationYear}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${book.brand}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${book.stock}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td th:text="${book.price}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;        <td>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a th:href="@{'/books/edit/' + ${book.id}}" class="btn btn-sm btn-primary">Редактировать</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a th:href="@{'/books/delete/' + ${book.id}}" class="btn btn-sm btn-danger" onclick="return confirm('Удалить эту книгу?')">Удалить</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;</table>&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash; Пагинация &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="d-flex justify-content-between">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;        Страница <span th:text="${bookPage.number + 1}"></span> из <span th:text="${bookPage.totalPages}"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a th:href="@{/books(page=${bookPage.number - 1}, size=${pageSize})}" class="btn btn-outline-secondary btn-sm"&ndash;&gt;-->
+<!--&lt;!&ndash;           th:if="${bookPage.hasPrevious()}">Назад</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <a th:href="@{/books(page=${bookPage.number + 1}, size=${pageSize})}" class="btn btn-outline-secondary btn-sm"&ndash;&gt;-->
+<!--&lt;!&ndash;           th:if="${bookPage.hasNext()}">Вперёд</a>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->

@@ -18,3 +18,23 @@ spring:
       enabled: true
       path: /h2-console
 
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG
+
+  file:
+    name: logs/app.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+server:
+  error:
+    include-message: always
+    include-stacktrace: always
